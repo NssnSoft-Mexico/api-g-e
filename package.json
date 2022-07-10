@@ -1,0 +1,45 @@
+{
+    "name": "particulares-sancionados",
+    "version": "1.0.0",
+    "description": "API de consulta de información sobre particulares sancionados por la SFP",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "nodemon -r dotenv/config src/app.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "wait-db": "echo Waiting on DB server... && wait-on tcp:${MYSQL_DB_ADDRESS}:3306",
+        "wait-db-migrate-seed": "npm run wait-db && knex migrate:latest && knex seed:run"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.funcionpublica.gob.mx/dgti/ees/particulares-sancionados-api"
+    },
+    "author": "Secretaría de la Función Pública",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://gitlab.funcionpublica.gob.mx/dgti/ees/particulares-sancionados-api/issues"
+    },
+    "homepage": "https://gitlab.funcionpublica.gob.mx/dgti/ees/particulares-sancionados-api/blob/master/README.md",
+    "dependencies": {
+        "apollo-datasource-rest": "^0.3.2",
+        "apollo-server-express": "^2.4.8",
+        "apollo-server-memcached": "^0.1.0-rc.10",
+        "body-parser": "^1.18.3",
+        "dataloader": "^1.4.0",
+        "diacritics": "^1.3.0",
+        "dotenv": "^7.0.0",
+        "express": "^4.17.1",
+        "express-graphql": "^0.7.1",
+        "graphql": "^14.5.7",
+        "graphql-fields-list": "^2.1.1",
+        "graphql-import": "^0.7.1",
+        "graphql-tools": "^4.0.4",
+        "lodash": "^4.17.15",
+        "morgan": "^1.9.1",
+        "nodemon": "^1.19.0",
+        "pg": "^7.18.2",
+        "pg-promise": "^9.2.1",
+        "prisma": "^1.34.8",
+        "sequelize-cli": "^6.4.1",
+        "wait-on": "^3.2.0"
+    }
+}
