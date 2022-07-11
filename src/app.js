@@ -17,13 +17,14 @@ const queryDB = (req, sql, args) => new Promise((resolve, reject) => {
 });
 
 const root = {
-  getUsers: (args, req) => queryDB(req, "select * from usuarios").then(data => data),//trae a todos los usuarios
-  updateUserInfo: (args, req) => queryDB(req, "update usuarios SET ? where id =?", [args, args.id]).then(data => data), //actualiza datos
-  getProduct: (args, req) => queryDB(req, "select * from product where activo = '1'").then(data => data),//trae todos los productos
-  getProductDel: (args, req) => queryDB(req, "select * from product where activo = '0' ").then(data => data),//trae todos los productos borrados
-  insertProduct: (args, req) => queryDB(req, "insert into product set?", args).then(data => data),// iserta productos
+  getLogin: (args, req) => queryDB(req, "select * from usuarios where user=? and pass=? ", [args.user, args.pass, args]).then(data => data),// *
+  getUsers: (args, req) => queryDB(req, "select * from usuarios").then(data => data),//trae a todos los usuarios *
+  updateUserInfo: (args, req) => queryDB(req, "update usuarios SET ? where id =?", [args, args.id]).then(data => data), //actualiza datos *
+  getProduct: (args, req) => queryDB(req, "select * from product where activo = '1'").then(data => data),//trae todos los productos *
+  getProductDel: (args, req) => queryDB(req, "select * from product where activo = '0' ").then(data => data),//trae todos los productos borrados *
+  insertProduct: (args, req) => queryDB(req, "insert into product set?", args).then(data => data),// iserta productos *
+
   deleteProduct: (args, req) => queryDB(req, "update product SET ? where id = ?", [args, args.id]).then(data => data),
-  updateProduct: (args, req) => queryDB(req, "update product SET ? where id = ?", [args, args.id]).then(data => data)
 };
 
 app.use((req, res, next) => {
@@ -37,7 +38,13 @@ app.use((req, res, next) => {
   next();
 });
 
+const corsOptions = {
+  origin: "*",
+  credentials : true
+}
+
 app.use('/graphql', graphqlHTTP({
+  cors: corsOptions,
   schema: schema,
   rootValue: root,
   graphiql: true,

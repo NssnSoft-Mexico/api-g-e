@@ -8,7 +8,7 @@ const cors = require('cors');
 const schema = buildSchema(`
   type User {
     id: String
-    nombre: String
+    name: String
     direccion: String
     ciudad: String
     pais: String
@@ -20,19 +20,24 @@ const schema = buildSchema(`
   }
   type Product {
     id: String
-    nombre: String
+    name: String
     cantidad: String
     activo: String
+  }
+  type log {
+    user: String
+    pass: String
   }
   type Query {
     getUsers: [User],
     getProduct: [Product],
-    getProductDel: [Product]
+    getProductDel: [Product],
+    getLogin(user: String, pass: String): [User]
   }
   type Mutation {
     updateUserInfo(
       id: Int
-      nombre: String
+      name: String
       direccion: String
       ciudad: String
       pais: String
@@ -43,7 +48,7 @@ const schema = buildSchema(`
       user: String
     ) : Boolean
     insertProduct(
-      nombre: String
+      name: String
       cantidad: String
       activo: String
     ) : Boolean
